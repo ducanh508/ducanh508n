@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SHAYAN XITERS</title>
+    <style>
+        :root {
+            --accent-color: #00a8ff;
+            --accent-dark: #0066cc;
+            --accent-glow: rgba(0, 168, 255, 0.3);
+            --accent-light: rgba(0, 168, 255, 0.1);
+        }
+
+        body {
+            background-color: #0a0a1a;
+            color: #e0e0e0;
+            font-family: 'Courier New', monospace;
+            padding: 20px;
+            max-width: 400px;
+            margin: 0 auto;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Hiệu ứng tia lửa điện */
+        .electric-spark {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+            z-index: -1;
+            opacity: 0.3;
+        }
+
+        .spark {
+            position: absolute;
+            width: 2px;
+            height: 20px;
+            background: linear-gradient(to bottom, transparent, var(--accent-color), transparent);
+            animation: spark-anim 2s infinite;
+        }
+
+        @keyframes spark-anim {
+            0% { height: 5px; opacity: 0; }
+            10% { height: 20px; opacity: 1; }
+            90% { opacity: 1; }
+            100% { height: 5px; opacity: 0; }
+        }
+
+        /* Hiệu ứng đốm sáng công nghệ */
+        body::before {
+            content: "";
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: 
+                radial-gradient(circle at 20% 30%, var(--accent-light) 0%, transparent 50%),
+                radial-gradient(circle at 80% 70%, var(--accent-light) 0%, transparent 50%),
+                radial-gradient(circle at 50% 20%, var(--accent-light) 0%, transparent 50%);
+            opacity: 0.5;
+            animation: pulse 15s infinite alternate;
+            z-index: -1;
+        }
+
+        @keyframes pulse {
+            0% { transform: translate(0, 0); }
+            25% { transform: translate(5%, 5%); }
+            50% { transform: translate(-5%, -5%); }
+            75% { transform: translate(5%, -5%); }
+            100% { transform: translate(-5%, 5%); }
+        }
+
+        h1 {
+            color: var(--accent-color);
+            text-align: center;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 30px;
+            font-size: 24px;
+            text-shadow: 0 0 10px var(--accent-glow);
+            position: relative;
+            animation: title-glow 3s infinite alternate;
+        }
+
+        @keyframes title-glow {
+            0% { text-shadow: 0 0 10px var(--accent-glow); }
+            100% { text-shadow: 0 0 20px var(--accent-color); }
+        }
+
+        .menu {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .menu-item {
+            padding: 12px 15px;
+            margin-bottom: 12px;
+            background-color: rgba(20, 20, 40, 0.8);
+            border-left: 3px solid var(--accent-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border-radius: 4px;
+            backdrop-filter: blur(5px);
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+        }
+
+        .menu-item:hover {
+            background-color: rgba(30, 30, 60, 0.9);
+            box-shadow: 0 0 15px var(--accent-glow);
+            transform: translateX(5px);
+        }
+
+        .menu-item .action {
+            color: #888;
+            font-size: 12px;
+            text-transform: uppercase;
+        }
+
+        /* Nút bật/tắt */
+        .toggle-switch {
+            position: relative;
+            display: inline-block;
+            width: 50px;
+            height: 24px;
+            margin-left: 10px;
+        }
+
+        .toggle-switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #333;
+            transition: .4s;
+            border-radius: 24px;
+        }
+
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 16px;
+            width: 16px;
+            left: 4px;
+            bottom: 4px;
+            background-color: #ccc;
+            transition: .4s;
+            border-radius: 50%;
+        }
+
+        input:checked + .slider {
+            background-color: var(--accent-color);
+        }
+
+        input:checked + .slider:before {
+            transform: translateX(26px);
+            background-color: white;
+        }
+
+        /* Nút mở game */
+        .game-buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+
+        .game-btn {
+            flex: 1;
+            padding: 12px;
+            margin: 0 5px;
+            background: linear-gradient(to right, var(--accent-dark), var(--accent-color));
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+            text-transform: uppercase;
+            font-size: 12px;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 0 10px var(--accent-glow);
+        }
+
+        .game-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 0 20px var(--accent-glow);
+        }
+
+        .game-btn::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(
+                to bottom right,
+                transparent, transparent, transparent,
+                rgba(255, 255, 255, 0.1), transparent
+            );
+            transform: rotate(30deg);
+        }
+
+        .game-btn:hover::after {
+            animation: btn-shine 1.5s;
+        }
+
+        @keyframes btn-shine {
+            0% { left: -50%; top: -50%; }
+            100% { left: 150%; top: 150%; }
+        }
+
+        .divider {
+            height: 1px;
+            background: linear-gradient(to right, transparent, var(--accent-color), transparent);
+            margin: 20px 0;
+            opacity: 0.5;
+        }
+
+        .status {
+            color: var(--accent-color);
+            text-align: center;
+            font-size: 14px;
+            margin-top: 20px;
+            text-transform: uppercase;
+            text-shadow: 0 0 5px var(--accent-glow);
+            animation: status-pulse 2s infinite;
+        }
+
+        @keyframes status-pulse {
+            0%, 100% { opacity: 0.8; }
+            50% { opacity: 1; }
+        }
+
+        /* Hiệu ứng ánh sáng công nghệ */
+        .tech-line {
+            position: absolute;
+            height: 1px;
+            background: linear-gradient(to right, transparent, var(--accent-color), transparent);
+            opacity: 0.3;
+            animation: tech-line 5s infinite;
+        }
+
+        @keyframes tech-line {
+            0% { width: 0; opacity: 0; }
+            10% { width: 100%; opacity: 0.3; }
+            90% { opacity: 0.3; }
+            100% { width: 0; opacity: 0; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Hiệu ứng tia lửa điện -->
+    <div class="electric-spark" id="spark-container"></div>
+
+    <h1>PANEL IOS 1.1 LEDUCPER </h1>
+
+    <ul class="menu">
+        <li class="menu-item">
+            <div>
+                <span>Install RegbotV4</span>
+                <span class="action">Auto Install</span>
+            </div>
+            <label class="toggle-switch">
+                <input type="checkbox">
+                <span class="slider"></span>
+            </label>
+        </li>
+        <li class="menu-item">
+            <div>
+                <span>Install FIX LAG FPS</span>
+                <span class="action">Boost Performance</span>
+            </div>
+            <label class="toggle-switch">
+                <input type="checkbox" checked>
+                <span class="slider"></span>
+            </label>
+        </li>
+        <li class="menu-item">
+            <div>
+                <span>Install Anticheat</span>
+                <span class="action">Secure System</span>
+            </div>
+            <label class="toggle-switch">
+                <input type="checkbox">
+                <span class="slider"></span>
+            </label>
+        </li>
+    </ul>
+
+    <div class="divider"></div>
+
+    <div class="game-buttons">
+        <button class="game-btn" id="open-ff">Open FreeFire</button>
+        <button class="game-btn" id="open-ffmax">Open FreeFireMax</button>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="status">
+        BẢN QUYỀN PANEL<br>
+        BY @LEDUCPERR
+    </div>
+
+    <script>
+        // Tạo hiệu ứng tia lửa điện ngẫu nhiên
+        function createSparks() {
+            const container = document.getElementById('spark-container');
+            const sparkCount = 10;
+            
+            for (let i = 0; i < sparkCount; i++) {
+                setTimeout(() => {
+                    const spark = document.createElement('div');
+                    spark.className = 'spark';
+                    spark.style.left = Math.random() * 100 + '%';
+                    spark.style.top = Math.random() * 100 + '%';
+                    spark.style.animationDelay = Math.random() * 2 + 's';
+                    container.appendChild(spark);
+                    
+                    // Xóa tia lửa sau khi animation kết thúc
+                    setTimeout(() => {
+                        spark.remove();
+                    }, 2000);
+                }, i * 200);
+            }
+            
+            setTimeout(createSparks, 2000);
+        }
+
+        // Tạo hiệu ứng đường kẻ công nghệ
+        function createTechLines() {
+            const body = document.body;
+            const lineCount = 3;
+            
+            for (let i = 0; i < lineCount; i++) {
+                const line = document.createElement('div');
+                line.className = 'tech-line';
+                line.style.top = Math.random() * 100 + '%';
+                line.style.animationDelay = Math.random() * 5 + 's';
+                body.appendChild(line);
+                
+                // Xóa đường kẻ sau khi animation kết thúc
+                setTimeout(() => {
+                    line.remove();
+                }, 5000);
+            }
+            
+            setTimeout(createTechLines, 3000);
+        }
+
+        // Bắt đầu hiệu ứng
+        createSparks();
+        createTechLines();
+
+        // Xử lý nút mở game
+        document.getElementById('open-ff').addEventListener('click', function() {
+            alert('Opening FreeFire...');
+            // Thực tế có thể dùng: window.location.href = 'freem://game/open';
+        });
+
+        document.getElementById('open-ffmax').addEventListener('click', function() {
+            alert('Opening FreeFire MAX...');
+            // Thực tế có thể dùng: window.location.href = 'freemmax://game/open';
+        });
+
+        // Hiệu ứng khi bật/tắt công tắc
+        document.querySelectorAll('.toggle-switch input').forEach(toggle => {
+            toggle.addEventListener('change', function() {
+                const menuItem = this.closest('.menu-item');
+                if (this.checked) {
+                    menuItem.style.boxShadow = '0 0 20px var(--accent-glow)';
+                    setTimeout(() => {
+                        menuItem.style.boxShadow = '0 0 15px var(--accent-glow)';
+                    }, 300);
+                } else {
+                    menuItem.style.boxShadow = 'none';
+                }
+            });
+        });
+    </script>
+</body>
+</html>
